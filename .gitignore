@@ -1,0 +1,12 @@
+src/Frontend/APITest/
+src/Frontend/WebApp/gbet-app/node_modules/
+src/Frontend/MobileApp/.vs/
+src/Frontend/MobileApp/GBetApp/GBetApp.Android/
+src/Frontend/MobileApp/GBetApp/GBetApp.iOS/
+src/Frontend/MobileApp/GBetApp/GBetApp/bin/
+src/Frontend/MobileApp/GBetApp/GBetApp/obj/
+src/Frontend/MobileApp/GBetApp.sln
+src/Backend/.vscode/
+src/Backend/gbet_api/.git/
+src/Backend/gbet_api/.gitignore
+src/Backend/gbet_api/env/

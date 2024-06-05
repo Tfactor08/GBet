@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:GBetApp.ViewModels"
+             xmlns:model="clr-namespace:GBetApp.Models"
+             xmlns:converters="clr-namespace:GBetApp.Converters"
+             x:DataType="vm:BetHistoryViewModel"
+             x:Class="GBetApp.Views.BetHistoryPage">
+
+    <Shell.TitleView>
+        <Grid HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal" Spacing="0">
+                <Label Text="GBet" TextColor="White"
+                       FontSize="24" FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                     Command="{Binding RefreshCommand}"
+                     IsEnabled="True">
+            <ScrollView>
+                <StackLayout>
+
+                    <Label FontSize="Title" HorizontalOptions="Center" Text="История" />
+
+                    <Label
+                        IsVisible="{Binding IsBetListEmpty}"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        FontAttributes="Italic"
+                        Text="У вас пока нет ставок :(" />
+
+                    <ListView
+                        x:Name="betsListView"
+                        ItemsSource="{Binding UserBets}"
+                        IsVisible="{Binding IsBetListEmpty, Converter={converters:BooleanConverter}}"
+                        HasUnevenRows="True">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:UserBet">
+                                <ViewCell>
+                                    <Grid Padding="12">
+                                        <Frame CornerRadius="10"
+                                               HasShadow="True"
+                                               Padding="10,10,10,20"
+                                               BorderColor="Black">
+                                            <StackLayout>
+                                                <Label
+                                                    VerticalOptions="Center"
+                                                    FontSize="Small"
+                                                    FontAttributes="Bold"
+                                                    Margin="0,10,0,10"
+                                                    HorizontalOptions="Center"
+                                                    Text="{Binding Bet}" />
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label
+                                                        Text="Возможный выигрыш:"/>
+                                                    <Label
+                                                        VerticalOptions="Center"
+                                                        HorizontalOptions="EndAndExpand"
+                                                        FontSize="Small"
+                                                        FontAttributes="Bold"
+                                                        Text="{Binding PossibleGain, StringFormat='{0:N} ₽'}" />
+                                                </StackLayout>
+
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Ставка:" />
+                                                    <Label
+                                                        Text="{Binding BetAmount, StringFormat='{0:N} ₽'}"
+                                                        HorizontalOptions="EndAndExpand"/>
+                                                </StackLayout>
+                                                
+                                                <StackLayout Spacing="-50"
+                                                             Orientation="Horizontal"
+                                                             Margin="15,10,0,0">
+                                                    <Label
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        FontSize="Micro"
+                                                        FontAttributes="Italic"
+                                                        Text="{Binding Date, StringFormat='{0:dd MMMM yyy}'}"/>
+                                                    <Label
+                                                        VerticalOptions="Center"
+                                                        FontSize="Micro"
+                                                        HorizontalOptions="End"
+                                                        Text="{Binding Status}"
+                                                        TextColor="{Binding StatusColor}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Frame>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                
+                </StackLayout>
+            </ScrollView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

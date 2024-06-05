@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GBetApp.Views.WithDrawingPage">
+
+    <Shell.TitleView>
+        <Grid HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal" Spacing="0">
+                <Label Text="Вывод средств" TextColor="White"
+                       FontSize="18" FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <Label FontSize="17" TextColor="Gray">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Для вывода средств обратитесь к главному бухгалтеру (Исмаилов Тарлан зовут его). &#10;&#10;" />
+                        <Span Text="Минимальная сумма вывода - 30 рублей!" TextColor="PaleVioletRed" FontSize="16"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

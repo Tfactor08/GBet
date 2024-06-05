@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:GBetApp.Converters"
+             xmlns:model="clr-namespace:GBetApp.Models"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="GBetApp.Views.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Shell.TitleView>
+        <Grid HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal" Spacing="0">
+                <Label Text="GBet" TextColor="White"
+                       FontSize="24" FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <StackLayout IsVisible="{Binding User.IsVerified,
+                                     Converter={converters:BooleanConverter}}"
+                         HorizontalOptions="Center" Margin="10,10,10,10">
+
+                <Label Text="{Binding User.Student.Name,
+                              StringFormat='Добро пожаловать, {0}!'}"
+                    FontSize="22"
+                    FontAttributes="Bold"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Center"/>
+
+                <Label FontSize="Medium" Margin="20,0,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="GBet - первая в мире " />
+                            <Span Text="букмекерская контора ставок на оценки. Всё, что вам нужно - это дождаться подтверждения вашего аккаунта, " />
+                            <Span Text="ознакомиться с правилами пользования, "
+                                  TextColor="{StaticResource Primary}"
+                                  FontAttributes="Italic"
+                                  FontSize="18"
+                                  TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GoToPageCommand}" CommandParameter="InfoPage"/>
+                                </Span.GestureRecognizers>
+                            </Span>
+                            <Span Text="получить фрибэт и начать игру."/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+            </StackLayout>
+
+            <StackLayout IsVisible="{Binding User.IsVerified}">
+
+                <Label FontSize="Title" HorizontalOptions="Center" Text="События" />
+
+                <Label Text="Пока нет событий :("
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand"
+                       FontAttributes="Italic"
+                       IsVisible="{Binding IsEventListEmpty}"/>
+
+                <ListView ItemsSource="{Binding Events}"
+                      IsVisible="{Binding IsEventListEmpty,
+                      Converter={converters:BooleanConverter}}"
+                      SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
+                      HasUnevenRows="True">
+                    <ListView.Behaviors>
+                        <xct:EventToCommandBehavior
+                        EventName="ItemSelected"
+                        Command="{Binding SelectedCommand}"
+                        EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}" />
+                    </ListView.Behaviors>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Event">
+                            <ViewCell>
+                                <Grid Padding="10">
+                                    <Frame CornerRadius="10" HasShadow="True" BorderColor="Black">
+                                        <StackLayout>
+                                            <Label
+                                            Margin="-10,-20,0,0"
+                                            VerticalOptions="Center"
+                                            FontSize="18"
+                                            Text="{Binding Subject}" />
+                                            <Label
+                                            VerticalOptions="Center"
+                                            FontSize="20"
+                                            FontAttributes="Bold"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding Name}" />
+                                            <Label
+                                            Margin="0,8,0,-10"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"
+                                            FontAttributes="Italic"
+                                            FontSize="Micro"
+                                            Text="{Binding Date}" />
+                                        </StackLayout>
+                                    </Frame>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

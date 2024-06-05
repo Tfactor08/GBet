@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:GBetApp.ViewModels"
+             xmlns:models="clr-namespace:GBetApp.Models"
+             x:DataType="viewmodels:BetsViewModel"
+             x:Class="GBetApp.Views.BetsPage">
+
+    <Shell.TitleView>
+        <Grid HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal" Spacing="0">
+                <Label Text="GBet" TextColor="White"
+                       FontSize="24" FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{Binding Event.Name}"
+                VerticalOptions="Start"
+                HorizontalOptions="CenterAndExpand"
+                FontAttributes="Bold"
+                FontSize="Large"/>
+
+            <ListView ItemsSource="{Binding Students}"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      HasUnevenRows="True"
+                      ItemTapped="ListView_ItemTapped">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Student">
+                        <ViewCell Height="120">
+                            <Grid>
+                                <Frame BorderColor="Black" Margin="10" CornerRadius="8" HasShadow="True">
+
+                                    <StackLayout Orientation="Vertical">
+                                        <Label Text="{Binding .}" HorizontalOptions="CenterAndExpand" />
+
+                                        <CollectionView
+                                                ItemsSource="{Binding Bets}"
+                                                ItemsLayout="HorizontalList"
+                                                SelectionMode="Single"
+                                                SelectionChanged="CollectionView_SelectionChanged">
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate x:DataType="models:Bet">
+                                                    <Grid  Margin="5">
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Frame BorderColor="Black"
+                                                                           Padding="10,10,35,10"
+                                                                           CornerRadius="10"
+                                                                           HasShadow="True">
+                                                                <StackLayout Orientation="Horizontal">
+                                                                    <Label Text="{Binding BetType.Name}" Padding="0,0,20,0" />
+                                                                    <Label Text="{Binding Rate}" FontAttributes="Bold" />
+                                                                </StackLayout>
+                                                            </Frame>
+                                                        </StackLayout>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                
+            </ListView>
+            <Label Text="{Binding ErrorText}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

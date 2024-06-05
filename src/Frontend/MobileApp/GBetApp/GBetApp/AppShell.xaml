@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:GBetApp.Views"
+       x:Class="GBetApp.AppShell"
+       FlyoutWidth="280">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary2}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="Black" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="White" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="Gray"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+
+            <!--
+            Default Styles for all Flyout Items
+            https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
+            -->
+            <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium"></Setter>
+            </Style>
+            <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="White" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="Black" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.FontAttributes" Value="Bold" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.FontSize" Value="22" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="White" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="Black" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.FontAttributes" Value="Normal" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <!--
+            Custom Style you can apply to any Flyout Item
+            -->
+            <Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <!-- 
+        When the Flyout is visible this defines the content to display in the flyout.
+        FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
+        https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
+    -->
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid RowSpacing="0" ColumnSpacing="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="85" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <BoxView Color="Black" Grid.ColumnSpan="2" />
+
+                <!--Icon-->
+                <Label FontFamily="FAS" FontSize="45"
+                       Text="{StaticResource IconAccount}" TextColor="White"
+                       VerticalOptions="Center" HorizontalOptions="Center"/>
+                <StackLayout Grid.Column="1" VerticalOptions="Center" Spacing="0">
+                    <Label
+                        Text="{Binding User.Student.Name}"
+                        FontSize="18"
+                        TextColor="White"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"/>
+                    <Label
+                        Text="{Binding User.Student.Id, StringFormat='Id {0}'}"
+                        FontSize="Small"
+                        TextColor="White"/>
+                </StackLayout>
+
+                <BoxView Grid.Row="1" Color="{StaticResource Primary2}" Grid.ColumnSpan="2" />
+                
+                <!--Icon-->
+                <Label FontFamily="FAS" FontSize="30" Grid.Row="1"
+                       Text="{StaticResource IconWallet}" TextColor="White"
+                       VerticalOptions="Center" HorizontalOptions="Center"/>
+                <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+
+                    <Label Text="{Binding User.Balance, StringFormat='{0:N} ₽'}"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="StartAndExpand"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            BackgroundColor="Transparent">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UpdateUserDataCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label Text="+" TextColor="White"
+                            FontSize="30" VerticalOptions="Center"
+                            HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToPageCommand}" CommandParameter="ReplenishmentPage" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </StackLayout>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <ShellItem FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" />
+    </ShellItem>
+    
+    <FlyoutItem Title="Главная">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS" Color="Black" Glyph="{StaticResource IconHome}" />
+        </FlyoutItem.Icon>
+        <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="История ставок">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS" Color="Black" Glyph="{StaticResource IconHistory}" />
+        </FlyoutItem.Icon>
+        <ShellContent Route="BetHistoryPage" ContentTemplate="{DataTemplate local:BetHistoryPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Вывод средств">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS" Color="Black" Glyph="{StaticResource IconExit}" />
+        </FlyoutItem.Icon>
+        <ShellContent Route="WithDraeingPage" ContentTemplate="{DataTemplate local:WithDrawingPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Информация">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS" Color="Black" Glyph="{StaticResource IconInfo}" />
+        </FlyoutItem.Icon>
+        <ShellContent Route="InfoPage" ContentTemplate="{DataTemplate local:InfoPage}" />
+    </FlyoutItem> 
+
+</Shell>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GBetApp.Views.ReplenishmentPage">
+
+    <Shell.TitleView>
+        <Grid HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal" Spacing="0">
+                <Label Text="Пополнение средств" TextColor="White"
+                       FontSize="18" FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <Label FontSize="16" TextColor="Black">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Номер карты (Сбер): &#10;" FontSize="17"/>
+                        <Span Text="5228 6005 1897 1090 &#10;" FontAttributes="Bold" FontSize="18"/>
+                        <Span Text="Привязанный номер телефона: &#10;" FontSize="17"/>
+                        <Span Text="+7(987) 287-37-38 &#10;&#10;" FontAttributes="Bold" FontSize="18"/>
+                        <Span Text="Для пополнения средств – отправьте нужную сумму на указанную выше карту. Баланс пополнится в течение часа. " TextColor="Gray" FontSize="17"/>
+                        <Span Text="Минимальная сумма пополнения - 10 рублей!" TextColor="PaleVioletRed" FontSize="16"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

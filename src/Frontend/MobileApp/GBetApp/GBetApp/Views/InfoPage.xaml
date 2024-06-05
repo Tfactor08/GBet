@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gbetapp="clr-namespace:GBetApp.Views"
+             x:DataType="gbetapp:InfoPage"
+             x:Class="GBetApp.Views.InfoPage">
+
+    <Shell.TitleView>
+        <Grid HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal" Spacing="0">
+                <Label Text="Правила пользования" TextColor="White"
+                       FontSize="18" FontAttributes="Bold"
+                       VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="labelHeaderStyle" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+            <Style x:Key="labelTextStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="Gray"/>
+                <Setter Property="Margin" Value="10,0,0,0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="20">
+
+                <StackLayout Spacing="-8">
+                    <Label Text="Букмекерская компания GBet"
+                           Style="{StaticResource labelHeaderStyle}"/>
+
+                    <Label Text="Букмекерская компания GBet является дочерней компанией всемирно известной фирмы TFactory. GBet предлагает большой выбор ставок на оценки учеников в пределах класса. Но слово &quot;предел&quot; для нас имеет временный характер."
+                           Style="{StaticResource labelTextStyle}"/>
+                </StackLayout>
+            
+                <StackLayout Spacing="-8">
+                    <Label Text="Аккаунт"
+                           Style="{StaticResource labelHeaderStyle}"/>
+
+                    <Label Text="Для получения доступа к приложению вам необходимо дождаться подтверждения аккаунта. После подтверждения аккаунта вы автоматически получите бесплатную ставку в размере 10 рублей. Если аккаунт не будет подтверждён – он будет удалён."
+                           Style="{StaticResource labelTextStyle}"/>
+                </StackLayout>
+
+                <StackLayout Spacing="-8">
+                    <Label Text="Пополнение средств"
+                           Style="{StaticResource labelHeaderStyle}"/>
+
+                    <Label Text="Информацию о пополнении средств можно найти на странице пополнения средств. Для перехода – нажмите на плюсик во всплывающем окне. Для обновления информации о балансе – нажмите на значок кошелька."
+                           Style="{StaticResource labelTextStyle}"/>
+                </StackLayout>
+                
+                <StackLayout Spacing="-8">
+                    <Label Text="Совершение ставок"
+                           Style="{StaticResource labelHeaderStyle}"/>
+
+                    <Label Text="Чтобы просмотреть список доступных ставок, перейдите во вкладку &quot;Главная&quot; и выберите событие. Минимальная сумма ставки – 10 рублей. На одного ученика в одном событии можно поставить лишь один раз."
+                           Style="{StaticResource labelTextStyle}"/>
+                </StackLayout>
+
+                <StackLayout Spacing="-8">
+                    <Label Text="Просмотр истории ставок"
+                           Style="{StaticResource labelHeaderStyle}"/>
+
+                    <Label Text="Для просмотра истории ваших ставок и дополнительной информации – перейдите в соответствующую вкладку во всплывающем окне."
+                           Style="{StaticResource labelTextStyle}"/>
+                </StackLayout>
+
+                <StackLayout Spacing="-8">
+                    <Label Text="Получение выигрыша"
+                           Style="{StaticResource labelHeaderStyle}"/>
+
+                    <Label Text="Если ваша ставка является выиграшной, вы получите свой выигрыш автоматически не позднее следующего дня после проведения события. В случае отмены события, вы получите сумму вашей ставки обратно."
+                           Style="{StaticResource labelTextStyle}"/>
+                </StackLayout>
+
+                <StackLayout Spacing="-8">
+                    <Label Text="Вывод средств"
+                           Style="{StaticResource labelHeaderStyle}"/>
+
+                    <Label Text="Информацию о выводе средств можно найти на странице вывода средств. Для перехода – перейдите в соответствующую вкладку во всплывающем окне."
+                           Style="{StaticResource labelTextStyle}"/>
+                </StackLayout>
+                
+                <StackLayout Spacing="-8">
+                    <Label Text="Условные обозначения"
+                           Style="{StaticResource labelHeaderStyle}"/>
+
+                    <Label Text="E_5:   5;&#10;E_4:   4;&#10;E_3:   3;&#10;E_2:   2;&#10;M_2:  больше, чем 2 (3, 4, 5);&#10;M_3:  больше, чем 3 (4, 5);&#10;L_5:   меньше, чем 5 (4, 3, 2);&#10;L_4:   меньше, чем 4 (3, 2)."
+                           Style="{StaticResource labelTextStyle}"/>
+                </StackLayout>
+                
+                <StackLayout Spacing="-8">
+                    <Label Text="Сотрудничество и поддержка"
+                           Style="{StaticResource labelHeaderStyle}"/>
+
+                    <Label Style="{StaticResource labelTextStyle}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="По всем вопросам обращайтесь "/>
+                                <Span Text="по ссылке." TextColor="{StaticResource Primary}"
+                                      FontAttributes="Italic" FontSize="18"
+                                      TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ClickCommand}"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

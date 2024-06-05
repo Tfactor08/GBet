@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:GBetApp.ViewModels"
+             x:DataType="vm:LoginViewModel"
+             x:Class="GBetApp.Views.LoginPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+        <StackLayout>
+            <Picker
+                SelectedItem="{Binding SelectedStudent, Mode=TwoWay}"
+                ItemsSource="{Binding Students}" />
+            <Label Text="{Binding ErrorMessage}" />
+            <Button
+                Text="OK"
+                Command="{Binding LoginCommand}"
+                IsEnabled="{Binding ButtonEnabled}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
